@@ -1,86 +1,206 @@
-# Example app with styled-components
+# React Flexbox
 
-This example features how you use a different styling solution than [styled-jsx](https://github.com/vercel/styled-jsx) that also supports universal styles. That means we can serve the required styles for the first render within the HTML and then load the rest in the client. In this case we are using [styled-components](https://github.com/styled-components/styled-components).
+### Requirements
 
-This example uses the Rust-based [SWC](https://nextjs.org/docs/advanced-features/compiler#styled-components) in Next.js for better performance than Babel.
+- [styled-components](https://styled-components.com/)
 
-Currently, only the `ssr` and `displayName` transforms have been implemented. These two transforms are the main requirement for using `styled-components` in Next.js.
+## Theme Documentation
 
-## Deploy your own
+The theme module (`/src/theme`) provides a centralized configuration for styling elements across your application, including breakpoints for responsive design and container sizes for consistent layout.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-styled-components)
+Files architecture:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-styled-components&project-name=with-styled-components&repository-name=with-styled-components)
+- Theme configuration: `/src/theme/theme.config.ts`
+- Default theme definition: `/src/theme/default.theme.ts`
+- Styled components declaration: `/src/theme/styled.d.ts`
 
-## How to use
+---
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+### Theme Configuration (`theme.config.ts`)
 
-```bash
-npx create-next-app --example with-styled-components with-styled-components-app
-```
+The theme.config.ts file defines enums for breakpoints, device media queries, and container sizes. It serves as a central reference for maintaining consistency in styling and layout across your application.
 
-```bash
-yarn create next-app --example with-styled-components with-styled-components-app
-```
+#### Breakpoints Enum
 
-```bash
-pnpm create next-app --example with-styled-components with-styled-components-app
-```
+Defines breakpoints for responsive design, specifying minimum screen widths at which the layout changes.
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+- SM: 576px
+- MD: 768px
+- LG: 992px
+- XL: 1200px
+- XXL: 1400px
 
-### Try it on CodeSandbox
+#### Device Enum
 
-[Open this example on CodeSandbox](https://codesandbox.io/s/github/vercel/next.js/tree/canary/examples/with-styled-components)
+Provides media queries corresponding to each breakpoint, ensuring styles adapt to different screen sizes.
 
-### Notes
+- SM: @media (min-width: 576px)
+- MD: @media (min-width: 768px)
+- LG: @media (min-width: 992px)
+- XL: @media (min-width: 1200px)
+- XXL: @media (min-width: 1400px)
 
-When wrapping a [Link](https://nextjs.org/docs/api-reference/next/link) from `next/link` within a styled-component, the [as](https://styled-components.com/docs/api#as-polymorphic-prop) prop provided by `styled` will collide with the Link's `as` prop and cause styled-components to throw an `Invalid tag` error. To avoid this, you can either use the recommended [forwardedAs](https://styled-components.com/docs/api#forwardedas-prop) prop from styled-components or use a different named prop to pass to a `styled` Link.
+#### ContainerSizes Enum
 
-<details>
-<summary>Click to expand workaround example</summary>
-<br />
+Specifies maximum container widths for different breakpoints, maintaining layout consistency across various screen sizes.
 
-**components/StyledLink.js**
+- SM: 540px
+- MD: 720px
+- LG: 960px
+- XL: 1140px
+- XXL: 1320px
 
-```javascript
-import Link from "next/link";
-import styled from "styled-components";
+---
 
-const StyledLink = ({ as, children, className, href }) => (
-  <Link href={href} as={as} passHref>
-    <a className={className}>{children}</a>
-  </Link>
-);
+### Customizing the theme
 
-export default styled(StyledLink)`
-  color: #0075e0;
-  text-decoration: none;
-  transition: all 0.2s ease-in-out;
+The `theme.config.ts` file serves as a central hub for configuring breakpoints, device media queries, and container sizes to maintain consistency in styling and layout across your application. Follow the guidelines below to customize the theme according to your design requirements:
 
-  &:hover {
-    color: #40a9ff;
-  }
+**For theme customization please refer to following instructions:**
+_When adding a new value to any enum, ensure that you update all related enums to reflect this change._
 
-  &:focus {
-    color: #40a9ff;
-    outline: none;
-    border: 0;
-  }
-`;
-```
+- If you add a new breakpoint in **Breakpoints**, update **Device** to include the corresponding media query. No updates are necessary in **ContainerSizes** since new breakpoints aren't necessarily tied to container widths.
 
-**pages/index.js**
+- If you add a new media query in **Device**, ensure that **Breakpoints** has a corresponding breakpoint for that. No updates are necessary in **ContainerSizes** since new media query devices aren't necessarily tied to container widths.
 
-```javascript
-import StyledLink from "../components/StyledLink";
+- If you add a new container width in **ContainerSizes**, make sure **Breakpoints** and **Device** have associated breakpoints and media queries, respectively, so you can use it. Subsequently, navigate to `/src/components/Container.ts` and incorporate the newly created media query and max-width into the container component.
 
-export default () => (
-  <StyledLink href="/post/[pid]" forwardedAs="/post/abc">
-    First post
-  </StyledLink>
-);
-```
+Simply follow the established pattern to maintain consistency and coherence within the codebase.
 
-</details>
+---
+
+## Container Component Documentation
+
+The Container component creates a container with responsive width based on the screen size, providing consistent spacing for content across different devices.
+
+Component path: `/src/components/Container`
+
+**Props:**
+The Container component does not accept any props directly. However, its styling and behavior are influenced by the theme settings defined in your styled-components theme.
+
+**Styling:**
+The component is styled using styled-components and provides the following styling attributes:
+
+- Responsive Width: Adjusts the maximum width of the container based on
+  different screen sizes using media queries defined in the theme.
+
+**Media Queries:**
+The container adjusts its maximum width according to the following screen sizes defined in the theme:
+
+- Small Screens (sm): `theme.containerSizes.sm`
+- Medium Screens (md): `theme.containerSizes.md`
+- Large Screens (lg): `theme.containerSizes.lg`
+- Extra Large Screens (xl): `theme.containerSizes.xl`
+- Extra Extra Large Screens (xxl): `theme.containerSizes.xxl`
+
+**Theme Settings:**
+Ensure that your theme object includes the necessary **containerSizes** settings for each screen size to ensure proper responsiveness.
+You can **adjust** theme config in `/src/theme/theme.config.ts` file
+
+### Example:
+
+    import Container from  "/src/components/Container/Container";
+
+    <Container>
+    	{children}
+    </Container>
+
+---
+
+## Flexbox Components Documentation
+
+This documentation provides comprehensive details about the props available for the Flexbox components, including explanations of each prop and its usage. The components covered in this documentation are FlexContainer and FlexItem.
+
+### FlexContainer Component
+
+The FlexContainer component creates a flex container that allows you to manage the layout of its child elements using Flexbox properties.
+
+Files architecture:
+
+- Component: `/src/components/Flexbox/FlexContainer`
+- Types: `/src/components/Flexbox/FlexContainer/types.d.ts`
+
+**FlexContainer props:**
+
+- `$flexDirection`: Specifies the direction of the flex container.
+  - Options: `row`, `row-reverse`, `column`, `column-reverse`
+- `$flexWrap`: Sets whether the flex items should wrap if they exceed the container's width.
+  - Options: `nowrap`, `wrap`, `wrap-reverse`
+- `$justifyContent`: Defines the alignment of flex items along the main axis.
+  - Options: `flex-start`, `flex-end`, `center`, `space-between`, `space-around`, `space-evenly`
+- `$alignItems`: Defines the alignment of flex items along the cross axis.
+  - Options: `stretch`, `flex-start`, `flex-end`, `center`, `baseline`
+- `$alignContent`: Defines the alignment of flex lines within the flex container when there is extra space.
+  - Options: `stretch`, `flex-start`, `flex-end`, `center`, `space-between`, `space-around`, `space-evenly`
+- `$gap`: Sets the gap between flex items.
+- `$rowGap`: Sets the gap between rows.
+- `$columnGap`: Sets the gap between columns.
+- `$margin`: Sets the margin of the flex container ([refer to shared props section](#shared-props)) .
+- `$padding`: Sets the padding of the flex container ([refer to shared props section](#shared-props)) .
+
+**Media Query Overrides:** Each of the above props can be overridden for specific screen sizes using props prefixed with the screen size abbreviation (e.g., `$smFlexDirection` for small screens).
+
+### FlexItem Component
+
+The FlexItem component represents a child element of a flex container and allows you to control its flex properties individually.
+
+Files architecture:
+
+- Component: `/src/components/Flexbox/FlexItem`
+- Types: `/src/components/Flexbox/FlexItem/types.d.ts`
+
+**FlexItem props:**
+
+- `$flex`: Specifies the flex grow factor of the item.
+- `$order`: Specifies the order of the item within the flex container.
+- `$alignSelf`: Overrides the alignment set by the parent flex container for the individual item.
+  - Options: `auto`, `flex-start`, `flex-end`, `center`, `baseline`, `stretch`
+- `$margin`: Sets the margin of the flex item ([refer to shared props section](#shared-props)) .
+- `$padding`: Sets the padding of the flex item ([refer to shared props section](#shared-props)) .
+
+**Media Query Overrides:** Each of the above props can be overridden for specific screen sizes using props prefixed with the screen size abbreviation (e.g., `$smFlex` for small screens).
+
+### Shared props
+
+These props are shared across both FlexContainer and FlexItem components.
+
+Types path: `/src/components/Flexbox/types.d.ts`
+
+**Spacing props:**
+
+- `$margin`: Sets the margin for both sides of the component.
+- `$marginTop`: Sets the margin for the top side of the component.
+- `$marginRight`: Sets the margin for the right side of the component.
+- `$marginBottom`: Sets the margin for the bottom side of the component.
+- `$marginLeft`: Sets the margin for the left side of the component.
+- `$padding`: Sets the padding for both sides of the component.
+- `$paddingTop`: Sets the padding for the top side of the component.
+- `$paddingRight`: Sets the padding for the right side of the component.
+- `$paddingBottom`: Sets the padding for the bottom side of the component.
+- `$paddingLeft`: Sets the padding for the left side of the component.
+
+**Media Query Overrides:** Each of the above shared props can be overridden for specific screen sizes using props prefixed with the screen size abbreviation (e.g., `$smMargin`, `$smMarginTop` etc., for small screens).
+
+---
+
+### Example:
+
+    import  { FlexContainer, FlexItem }  from  "/src/components/Flexbox";
+
+    <FlexContainer
+        $justifyContent="center"
+    	$smJustifyContent="flex-start"
+    	$alignItems="center"
+    	$gap="20px"
+    	// ...rest of the props you need (see FlexContainer props section)
+    >
+    	<FlexItem
+    		$flex="1"
+    		$alignSelf="center"
+    		$mdAlignSelf="flex-end"
+    		$margin="5px"
+    		// ...rest of the props you need (see FlexItem props section)
+    	>
+    		{content}
+        </FlexItem>
+    </FlexContainer>
