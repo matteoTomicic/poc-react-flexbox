@@ -1,8 +1,11 @@
 import { styled } from "styled-components";
-import { IFlexItem } from "types/flex-item";
-import { ISpacing } from "types/shared";
+import { IFlexItem } from "./FlexItem.types";
+import { ISpacing } from "../Shared.types";
 
 const FlexItem = styled.div<IFlexItem & ISpacing>`
+  flex-grow: ${({ $flexGrow }) => $flexGrow && $flexGrow};
+  flex-shrink: ${({ $flexShrink }) => $flexShrink && $flexShrink};
+  flex-basis: ${({ $flexBasis }) => $flexBasis && $flexBasis};
   flex: ${({ $flex }) => $flex && $flex};
   order: ${({ $order }) => $order && $order};
   align-self: ${({ $alignSelf }) => $alignSelf && $alignSelf};
@@ -18,6 +21,9 @@ const FlexItem = styled.div<IFlexItem & ISpacing>`
   padding-left: ${({ $paddingLeft }) => $paddingLeft && $paddingLeft};
 
   ${({ theme }) => theme.device.sm} {
+    flex-grow: ${({ $smFlexGrow }) => $smFlexGrow && $smFlexGrow};
+    flex-shrink: ${({ $smFlexShrink }) => $smFlexShrink && $smFlexShrink};
+    flex-basis: ${({ $smFlexBasis }) => $smFlexBasis && $smFlexBasis};
     flex: ${({ $smFlex }) => $smFlex && $smFlex};
     order: ${({ $smOrder }) => $smOrder && $smOrder};
     align-self: ${({ $smAlignSelf }) => $smAlignSelf && $smAlignSelf};
@@ -37,6 +43,9 @@ const FlexItem = styled.div<IFlexItem & ISpacing>`
   }
 
   ${({ theme }) => theme.device.md} {
+    flex-grow: ${({ $mdFlexGrow }) => $mdFlexGrow && $mdFlexGrow};
+    flex-shrink: ${({ $mdFlexShrink }) => $mdFlexShrink && $mdFlexShrink};
+    flex-basis: ${({ $mdFlexBasis }) => $mdFlexBasis && $mdFlexBasis};
     flex: ${({ $mdFlex }) => $mdFlex && $mdFlex};
     order: ${({ $mdOrder }) => $mdOrder && $mdOrder};
     align-self: ${({ $mdAlignSelf }) => $mdAlignSelf && $mdAlignSelf};
@@ -56,6 +65,9 @@ const FlexItem = styled.div<IFlexItem & ISpacing>`
   }
 
   ${({ theme }) => theme.device.lg} {
+    flex-grow: ${({ $lgFlexGrow }) => $lgFlexGrow && $lgFlexGrow};
+    flex-shrink: ${({ $lgFlexShrink }) => $lgFlexShrink && $lgFlexShrink};
+    flex-basis: ${({ $lgFlexBasis }) => $lgFlexBasis && $lgFlexBasis};
     flex: ${({ $lgFlex }) => $lgFlex && $lgFlex};
     order: ${({ $lgOrder }) => $lgOrder && $lgOrder};
     align-self: ${({ $lgAlignSelf }) => $lgAlignSelf && $lgAlignSelf};
@@ -75,6 +87,9 @@ const FlexItem = styled.div<IFlexItem & ISpacing>`
   }
 
   ${({ theme }) => theme.device.xl} {
+    flex-grow: ${({ $xlFlexGrow }) => $xlFlexGrow && $xlFlexGrow};
+    flex-shrink: ${({ $xlFlexShrink }) => $xlFlexShrink && $xlFlexShrink};
+    flex-basis: ${({ $xlFlexBasis }) => $xlFlexBasis && $xlFlexBasis};
     flex: ${({ $xlFlex }) => $xlFlex && $xlFlex};
     order: ${({ $xlOrder }) => $xlOrder && $xlOrder};
     align-self: ${({ $xlAlignSelf }) => $xlAlignSelf && $xlAlignSelf};
@@ -94,6 +109,9 @@ const FlexItem = styled.div<IFlexItem & ISpacing>`
   }
 
   ${({ theme }) => theme.device.xxl} {
+    flex-grow: ${({ $xxlFlexGrow }) => $xxlFlexGrow && $xxlFlexGrow};
+    flex-shrink: ${({ $xxlFlexShrink }) => $xxlFlexShrink && $xxlFlexShrink};
+    flex-basis: ${({ $xxlFlexBasis }) => $xxlFlexBasis && $xxlFlexBasis};
     flex: ${({ $xxlFlex }) => $xxlFlex && $xxlFlex};
     order: ${({ $xxlOrder }) => $xxlOrder && $xxlOrder};
     align-self: ${({ $xxlAlignSelf }) => $xxlAlignSelf && $xxlAlignSelf};

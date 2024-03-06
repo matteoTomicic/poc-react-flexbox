@@ -1,11 +1,12 @@
 import { styled } from "styled-components";
-import { IFlexContainer } from "types/flex-container";
-import { ISpacing } from "types/shared";
+import { IFlexContainer } from "./FlexContainer.types";
+import { ISpacing } from "../Shared.types";
 
 const FlexContainer = styled.div<IFlexContainer & ISpacing>`
   display: flex;
   flex-direction: ${({ $flexDirection }) => $flexDirection && $flexDirection};
-  flex-wrap: ${({ $flexWrap }) => ($flexWrap ? $flexWrap : "wrap")};
+  flex-wrap: ${({ $flexWrap }) => $flexWrap && $flexWrap};
+  flex-flow: ${({ $flexFlow }) => $flexFlow && $flexFlow};
   justify-content: ${({ $justifyContent }) =>
     $justifyContent && $justifyContent};
   align-items: ${({ $alignItems }) => $alignItems && $alignItems};
@@ -28,6 +29,7 @@ const FlexContainer = styled.div<IFlexContainer & ISpacing>`
     flex-direction: ${({ $smFlexDirection }) =>
       $smFlexDirection && $smFlexDirection};
     flex-wrap: ${({ $smFlexWrap }) => $smFlexWrap && $smFlexWrap};
+    flex-flow: ${({ $smFlexFlow }) => $smFlexFlow && $smFlexFlow};
     justify-content: ${({ $smJustifyContent }) =>
       $smJustifyContent && $smJustifyContent};
     align-items: ${({ $smAlignItems }) => $smAlignItems && $smAlignItems};
@@ -55,6 +57,7 @@ const FlexContainer = styled.div<IFlexContainer & ISpacing>`
     flex-direction: ${({ $mdFlexDirection }) =>
       $mdFlexDirection && $mdFlexDirection};
     flex-wrap: ${({ $mdFlexWrap }) => $mdFlexWrap && $mdFlexWrap};
+    flex-flow: ${({ $mdFlexFlow }) => $mdFlexFlow && $mdFlexFlow};
     justify-content: ${({ $mdJustifyContent }) =>
       $mdJustifyContent && $mdJustifyContent};
     align-items: ${({ $mdAlignItems }) => $mdAlignItems && $mdAlignItems};
@@ -82,6 +85,7 @@ const FlexContainer = styled.div<IFlexContainer & ISpacing>`
     flex-direction: ${({ $lgFlexDirection }) =>
       $lgFlexDirection && $lgFlexDirection};
     flex-wrap: ${({ $lgFlexWrap }) => $lgFlexWrap && $lgFlexWrap};
+    flex-flow: ${({ $lgFlexFlow }) => $lgFlexFlow && $lgFlexFlow};
     justify-content: ${({ $lgJustifyContent }) =>
       $lgJustifyContent && $lgJustifyContent};
     align-items: ${({ $lgAlignItems }) => $lgAlignItems && $lgAlignItems};
@@ -109,6 +113,7 @@ const FlexContainer = styled.div<IFlexContainer & ISpacing>`
     flex-direction: ${({ $xlFlexDirection }) =>
       $xlFlexDirection && $xlFlexDirection};
     flex-wrap: ${({ $xlFlexWrap }) => $xlFlexWrap && $xlFlexWrap};
+    flex-flow: ${({ $xlFlexFlow }) => $xlFlexFlow && $xlFlexFlow};
     justify-content: ${({ $xlJustifyContent }) =>
       $xlJustifyContent && $xlJustifyContent};
     align-items: ${({ $xlAlignItems }) => $xlAlignItems && $xlAlignItems};
@@ -136,6 +141,7 @@ const FlexContainer = styled.div<IFlexContainer & ISpacing>`
     flex-direction: ${({ $xxlFlexDirection }) =>
       $xxlFlexDirection && $xxlFlexDirection};
     flex-wrap: ${({ $xxlFlexWrap }) => $xxlFlexWrap && $xxlFlexWrap};
+    flex-flow: ${({ $xxlFlexFlow }) => $xxlFlexFlow && $xxlFlexFlow};
     justify-content: ${({ $xxlJustifyContent }) =>
       $xxlJustifyContent && $xxlJustifyContent};
     align-items: ${({ $xxlAlignItems }) => $xxlAlignItems && $xxlAlignItems};
