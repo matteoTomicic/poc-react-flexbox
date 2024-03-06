@@ -126,6 +126,7 @@ Files architecture:
   - Options: `row`, `row-reverse`, `column`, `column-reverse`
 - `$flexWrap`: Sets whether the flex items should wrap if they exceed the container's width.
   - Options: `nowrap`, `wrap`, `wrap-reverse`
+- `$flexFlow`: Shorthand for the `flex-direction` and `flex-wrap` properties.
 - `$justifyContent`: Defines the alignment of flex items along the main axis.
   - Options: `flex-start`, `flex-end`, `center`, `space-between`, `space-around`, `space-evenly`
 - `$alignItems`: Defines the alignment of flex items along the cross axis.
@@ -151,7 +152,10 @@ Files architecture:
 
 **FlexItem props:**
 
-- `$flex`: Specifies the flex grow factor of the item.
+- `$flexGrow`: Specifies how much of the flex container's remaining space should be assigned to the flex item's main size.
+- `$flexShrink`:  Specifies the flex shrink factor of a flex item. If the size of all flex items is larger than the flex container, items shrink to fit according to `flex-shrink`.
+- `$flexBasis`:  Specifies the initial main size of a flex item.
+- `$flex`: Shorthand property sets how a flex item will grow or shrink to fit the space available in its flex container.
 - `$order`: Specifies the order of the item within the flex container.
 - `$alignSelf`: Overrides the alignment set by the parent flex container for the individual item.
   - Options: `auto`, `flex-start`, `flex-end`, `center`, `baseline`, `stretch`
